@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../store/authSlice.js";
 import { Navigate } from "react-router-dom";
+import ErrorAlert from "../Alert/ErrorAlert/ErrorAlert.jsx";
+import SuccessAlert from "../Alert/SuccessAlert/SuccessAlert.jsx";
 
 const Login = () => {
   const [loginUser, { isLoading, error }] = useAuthUserMutation();
@@ -25,7 +27,7 @@ const Login = () => {
     }
   }, []);
 
-  console.log(`error: ${ error }`);
+  console.log(`login error: ${ error }`);
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -46,23 +48,13 @@ const Login = () => {
         <input onInput={ handleInput } required type="password" name="password" placeholder="Jelszó"/>
         <input ref={ loginBtn } type="submit" className="btn btn-sm btn-secondary mt-2" value="Bejelentkezés"/>
       </form>
-      { isLoading && !error && <div role="alert" className="alert alert-success w-[20%] p-2">
-        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none"
-             viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <span>Sikeres bejelentkezés!</span>
-      </div> }
+      <SuccessAlert condition={ isLoading && !error }>
+        Sikeres bejelentkezés!
+      </SuccessAlert>
       { isLoading && <span className="loading loading-spinner loading-lg"></span> }
-      { error && <div role="alert" className="alert alert-error w-[25%] p-2">
-        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none"
-             viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <span>Helytelen email cím vagy jelszó!</span>
-      </div> }
+      <ErrorAlert condition={ error ?? false }>
+        Helytelen email cím vagy jelszó!
+      </ErrorAlert>
     </div>
   </>;
 };
