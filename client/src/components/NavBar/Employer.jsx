@@ -3,8 +3,8 @@ import LogoutButton from "./LogoutButton/LogoutButton.jsx";
 
 const Employer = () => {
   return <>
-    <NavButton>Főoldal</NavButton>
-    <NavButton>Profilom</NavButton>
+    <NavButton to="/home">Főoldal</NavButton>
+    <NavButton to="/account">Profilom</NavButton>
     <NavButton>Álláshirdetés hozzáadása</NavButton>
     <LogoutButton>
       <NavButton>Kijelentkezés</NavButton>
