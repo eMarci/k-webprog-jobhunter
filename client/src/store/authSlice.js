@@ -1,9 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { jobhunterApi } from "./jobhunterApi.js";
 
+const getFromLocalStorage = () => {
+  try {
+    return JSON.parse(localStorage.getItem("auth"));
+  } catch (error) {
+    localStorage.removeItem("auth");
+    return {};
+  }
+};
+
 const authSlice = createSlice({
   initialState: {
-    auth: JSON.parse(localStorage.getItem("auth"))
+    auth: getFromLocalStorage()
   },
   name: 'auth',
   reducers: {
