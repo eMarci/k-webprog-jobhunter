@@ -20,7 +20,7 @@ export const jobhunterApi = createApi({
       }),
     }),
     getUserInfo: builder.query({
-      query: (userId) => `users/${userId}`,
+      query: (userId) => `users/${ userId }`,
     }),
     getUserExp: builder.query({
       query: () => 'experiences',
@@ -41,14 +41,14 @@ export const jobhunterApi = createApi({
     }),
     modifyExp: builder.mutation({
       query: ({ expId, body }) => ({
-        url: `experiences/${expId}`,
+        url: `experiences/${ expId }`,
         method: 'PATCH',
         body: body
       }),
     }),
     delExp: builder.mutation({
       query: (expId) => ({
-        url: `experiences/${expId}`,
+        url: `experiences/${ expId }`,
         method: 'DELETE',
       }),
     }),
@@ -70,14 +70,14 @@ export const jobhunterApi = createApi({
     }),
     modifyJob: builder.mutation({
       query: ({ jobId, company, position, description, salaryFrom, salaryTo, type, city, homeOffice }) => ({
-        url: `jobs/${jobId}`,
+        url: `jobs/${ jobId }`,
         method: 'PATCH',
         body: { company, position, description, salaryFrom, salaryTo, type, city, homeOffice },
       }),
     }),
     delJob: builder.mutation({
       query: (jobId) => ({
-        url: `jobs/${jobId}`,
+        url: `jobs/${ jobId }`,
         method: 'DELETE',
       })
     }),
@@ -88,7 +88,7 @@ export const jobhunterApi = createApi({
       })
     }),
     applyForJob: builder.mutation({
-      query: (jobId ) => ({
+      query: (jobId) => ({
         url: 'applicants',
         method: 'POST',
         body: { jobId },
@@ -96,15 +96,36 @@ export const jobhunterApi = createApi({
     }),
     removeFromJob: builder.mutation({
       query: (jobId) => ({
-        url: `applicants?jobId=${jobId}`,
+        url: `applicants?jobId=${ jobId }`,
         method: 'DELETE',
       })
     }),
     getApplicantsForJob: builder.query({
-      query: (jobId) => `applicants?jobId=${jobId}`,
+      query: (jobId) => `applicants?jobId=${ jobId }`,
     }),
     getUserApplications: builder.query({
-      query: (userId) => `applicants?userId=${userId}`,
+      query: (userId) => `applicants?userId=${ userId }`,
     })
   }),
 });
+
+export const {
+  useRegisterUserMutation,
+  useAuthUserMutation,
+  useGetUserInfoQuery,
+  useGetUserExpQuery,
+  useAddExpMutation,
+  useAddExpsMutation,
+  useModifyExpMutation,
+  useDelExpMutation,
+  useDelAllExpMutation,
+  useGetAllJobsQuery,
+  useCreateJobMutation,
+  useModifyJobMutation,
+  useDelJobMutation,
+  useDelAllJobsMutation,
+  useApplyForJobMutation,
+  useRemoveFromJobMutation,
+  useGetApplicantsForJobQuery,
+  useGetUserApplicationsQuery,
+} = jobhunterApi;
