@@ -111,8 +111,8 @@ export const jobhunterApi = createApi({
       }),
     }),
     modifyJob: builder.mutation({
-      query: ({ jobId, company, position, description, salaryFrom, salaryTo, type, city, homeOffice }) => ({
-        url: `jobs/${ jobId }`,
+      query: ({ id, company, position, description, salaryFrom, salaryTo, type, city, homeOffice }) => ({
+        url: `jobs/${ id }`,
         method: 'PATCH',
         body: { company, position, description, salaryFrom, salaryTo, type, city, homeOffice },
       }),
