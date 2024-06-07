@@ -1,5 +1,34 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const filteredJobsUrl = (base, { min, max, id, company, position, type, city, homeOffice }) => {
+  let url = base + '?';
+  if (min !== undefined) {
+    url += `salaryFrom[$gt]=${ min }&`;
+  }
+  if (max !== undefined) {
+    url += `salaryTo[$lt]=${ max }&`;
+  }
+  if (id !== undefined) {
+    url += `id=${ id }&`;
+  }
+  if (position !== undefined) {
+    url += `position=${ position }&`;
+  }
+  if (company !== undefined) {
+    url += `company=${ company }&`
+  }
+  if (type !== undefined) {
+    url += `type=${ type }&`;
+  }
+  if (city !== undefined) {
+    url += `city=${ city }&`;
+  }
+  if (homeOffice !== undefined) {
+    url += `homeOffice=${ homeOffice === 1 ? 'true' : 'false' }&`
+  }
+  return url;
+};
+
 const baseUrl = 'http://localhost:3030';
 export const jobhunterApi = createApi({
   reducerPath: 'jobhunterApi',
@@ -69,6 +98,11 @@ export const jobhunterApi = createApi({
     getAllJobs: builder.query({
       query: () => 'jobs',
     }),
+    getJobs: builder.query({
+      query: ({ min, max, id, company, position, type, city, homeOffice }) =>
+        filteredJobsUrl('jobs',
+          { min, max, id, company, position, type, city, homeOffice })
+    }),
     createJob: builder.mutation({
       query: ({ company, position, description, salaryFrom, salaryTo, type, city, homeOffice }) => ({
         url: `jobs/0`,
@@ -128,6 +162,7 @@ export const {
   useDelExpMutation,
   useDelAllExpMutation,
   useGetAllJobsQuery,
+  useGetJobsQuery,
   useCreateJobMutation,
   useModifyJobMutation,
   useDelJobMutation,
