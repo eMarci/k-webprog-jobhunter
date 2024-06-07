@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { jobhunterApi } from "./jobhunterApi.js";
 
 const getFromLocalStorage = () => {
   try {
