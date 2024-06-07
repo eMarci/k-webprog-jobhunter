@@ -45,8 +45,8 @@ const Login = () => {
     <div className="hero flex flex-col mt-20">
       <p>Bejelentkezés</p>
       <form onSubmit={ handleLogin } className="hero-content flex-col gap-y-1">
-        <input onInput={ handleInput } required type="email" name="email" placeholder="Email cím"/>
-        <input onInput={ handleInput } required type="password" name="password" placeholder="Jelszó"/>
+        <input onInput={ handleInput } required className="input input-bordered input-sm" type="email" name="email" placeholder="Email cím"/>
+        <input onInput={ handleInput } required className="input input-bordered input-sm" type="password" name="password" placeholder="Jelszó"/>
         <input ref={ loginBtn } type="submit" className="btn btn-sm btn-secondary mt-2" value="Bejelentkezés"/>
       </form>
       <SuccessAlert condition={ isLoading && !error }>
