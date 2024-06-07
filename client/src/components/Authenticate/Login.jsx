@@ -5,6 +5,7 @@ import { setUser } from "../../store/authSlice.js";
 import { Navigate } from "react-router-dom";
 import ErrorAlert from "../Alert/ErrorAlert/ErrorAlert.jsx";
 import SuccessAlert from "../Alert/SuccessAlert/SuccessAlert.jsx";
+import Spinner from "../Spinner/Spinner.jsx";
 
 const Login = () => {
   const [loginUser, { isLoading, error }] = useAuthUserMutation();
@@ -51,8 +52,8 @@ const Login = () => {
       <SuccessAlert condition={ isLoading && !error }>
         Sikeres bejelentkezés!
       </SuccessAlert>
-      { isLoading && <span className="loading loading-spinner loading-lg"></span> }
-      <ErrorAlert condition={ error ?? false }>
+      { isLoading && <Spinner/> }
+      <ErrorAlert condition={ error !== undefined }>
         Helytelen email cím vagy jelszó!
       </ErrorAlert>
     </div>
